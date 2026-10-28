@@ -8,24 +8,21 @@ fetch(csvUrl)
   })
   .then(csv => {
     const result = Papa.parse(csv, {
+      delimiter: ",",
       skipEmptyLines: true
     });
 
-    if (result.errors.length) {
-      throw new Error("There was a problem reading the CSV.");
-    }
+    console.log(result.data); // Check whether comma-containing cells stay intact
 
     const table = document.createElement("table");
 
-    result.data.forEach((row, rowIndex) => {
+    result.data.forEach((row, i) => {
       const tr = document.createElement("tr");
-
       row.forEach(cell => {
-        const td = document.createElement(rowIndex === 0 ? "th" : "td");
-        td.textContent = cell; // Displays text safely
-        tr.appendChild(td);
+        const cellElement = document.createElement(i === 0 ? "th" : "td");
+        cellElement.textContent = cell;
+        tr.appendChild(cellElement);
       });
-
       table.appendChild(tr);
     });
 
