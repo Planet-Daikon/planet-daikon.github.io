@@ -16,4 +16,4 @@ has_toc: false
 </table>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<script src="{{ '/assets/sheet.js' | relative_url }}"></script>
+<script src="{{ '/assets/csv-table.js' | relative_url }}"></script>
