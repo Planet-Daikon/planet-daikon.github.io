@@ -1,0 +1,108 @@
+// Callouts
+
+// note
+p.note, blockquote.note {
+    background: rgba($purple-100, 0.1);
+
+    &::before {
+        color: $purple-000;
+    }
+}
+
+p.note-title, blockquote.note-title {
+    background: rgba($purple-100, 0.1);
+
+    p:first-child {
+        color: $purple-100;
+    }
+}
+
+// warning
+p.warning, blockquote.warning {
+    background: rgba($red-100, 0.1);
+
+    &::before {
+        color: $red-000;
+    }
+}
+
+p.warning-title, blockquote.warning-title {
+    background: rgba($red-100, 0.1);
+    
+    p:first-child {
+        color: $red-100;
+    }
+}
+
+// important
+p.important, blockquote.important {
+    background: rgba($blue-100, 0.1);
+
+    &::before {
+        color: $blue-000;
+    }
+}
+
+p.important-title, blockquote.important-title {
+    background: rgba($blue-100, 0.1);
+    
+    p:first-child {
+        color: $blue-100;
+    }
+}
+
+// new
+p.new, blockquote.new {
+    background: rgba($green-100, 0.1);
+
+    &::before {
+        color: $green-000;
+    }
+}
+
+p.new-title, blockquote.new-title {
+    background: rgba($green-100, 0.1);
+    
+    p:first-child {
+        color: $green-100;
+    }
+}
+
+// Collection headers
+.nav-category {
+    color: rgba(#fff4bd, 0.7);
+    //font-style: italic;
+    //background: linear-gradient(-90deg, rgba($grey-dk-250, 1) 0%, rgba($grey-dk-250, 0) 70%);
+
+    @include fs-3;
+}
+
+// Tables
+
+// Fix coloring
+th,
+td {
+    background-color: rgba(#242424, 1);
+}
+
+// Fix page width
+
+.side-bar {
+    @include mq(lg) {
+        width: calc((100% - 86.5rem) / 2 + 16.5rem);
+        min-width: $nav-width;
+    }
+
+    & + .main {
+        @include mq(lg) {
+            max-width: 70rem;
+            margin-left: max(16.5rem, (100% - 86.5rem) / 2 + 16.5rem);
+        };
+    }
+    
+}
+
+// Divider line grad
+hr {
+    background: linear-gradient(90deg, rgba($grey-dk-200, 1) 0%, rgba($grey-dk-200, 0) 70%);
+}

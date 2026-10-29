@@ -8,4 +8,6 @@ gem "just-the-docs", "0.12.0" # pinned to the current release
 
 gem "logger"
 
+<<<<<<< HEAD
 gem "wdm"
+>>>>>>> da651b6 (test)
