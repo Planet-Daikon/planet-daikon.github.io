@@ -16,3 +16,15 @@ color_scheme: dark
 
 plugins:
   - jekyll-remote-theme
+
+collections:
+  profiles:
+    output: true
+    permalink: /:collection/:name/
+
+just_the_docs:
+  collections:
+    profiles:
+      name: Profiles
+      nav_fold: true
+      search_exclude: false
