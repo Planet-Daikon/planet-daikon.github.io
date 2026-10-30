@@ -1,0 +1,5 @@
+---
+title: "Mathemagitron"
+---
+
+# Mathemagitron

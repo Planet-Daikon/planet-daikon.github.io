@@ -1,0 +1,5 @@
+---
+title: "duad"
+---
+
+# duad

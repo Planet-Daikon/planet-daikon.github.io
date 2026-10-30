@@ -1,0 +1,5 @@
+---
+title: "Hexadice"
+---
+
+# Hexadice
