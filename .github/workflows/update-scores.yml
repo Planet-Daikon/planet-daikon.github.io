@@ -82,7 +82,7 @@ jobs:
           import unicodedata
 
           source = Path("data/profiles.txt")
-          output_dir = Path("docs/profiles")
+          output_dir = Path("_profile")
           output_dir.mkdir(parents=True, exist_ok=True)
 
           def slugify(text):
@@ -131,7 +131,7 @@ jobs:
           if ! git diff --quiet -- data/; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/*.csv data/profiles.txt docs/profiles/
+            git add data/*.csv data/profiles.txt _profile/
             git commit -m "Update Scores"
             git push
           fi
