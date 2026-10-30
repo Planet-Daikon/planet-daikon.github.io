@@ -39,8 +39,7 @@ jobs:
           from pathlib import Path
 
           entries = {}
-
-          split_files = {"GODuo.csv", "WVDuo.csv"}
+          split_files = {"goduo.csv", "wvduo.csv"}
 
           for path in sorted(Path("data").glob("*.csv")):
               with path.open(newline="", encoding="utf-8-sig") as f:
@@ -66,7 +65,10 @@ jobs:
           output = Path("data/profiles.txt")
           output.parent.mkdir(parents=True, exist_ok=True)
           output.write_text(
-              "".join(f"{entry}\n" for entry in sorted(entries.values(), key=str.casefold)),
+              "".join(
+                  f"{entry}\n"
+                  for entry in sorted(entries.values(), key=str.casefold)
+              ),
               encoding="utf-8",
           )
           PY
