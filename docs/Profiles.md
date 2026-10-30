@@ -41,7 +41,6 @@ has_toc: false
     overflow-y: auto;
     margin: 4px 0 0;
     padding: 0;
-    list-style: none;
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
