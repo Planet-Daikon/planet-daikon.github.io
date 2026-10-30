@@ -20,7 +20,7 @@ plugins:
 collections:
   profile:
     output: true
-    permalink: /:collection/:name/
+    permalink: /profile/:name/
 
 just_the_docs:
   collections:
