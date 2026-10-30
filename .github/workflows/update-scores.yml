@@ -60,9 +60,7 @@ jobs:
                       if row:
                           rows.append([row[0], type_value, *row[1:]])
       
-          rows.sort(key=lambda row: 
-            int(row[2].replace(",", "")),
-            reverse=True,)
+          rows.sort(key=lambda row: int(row[2].replace(",", "")), reverse=True)
       
           with output_path.open("w", newline="", encoding="utf-8") as outfile:
               writer = csv.writer(outfile)
