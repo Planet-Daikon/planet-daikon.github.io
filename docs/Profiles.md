@@ -62,6 +62,15 @@ has_toc: false
   .profile-results li.no-results {
     padding: 8px 12px;
   }
+  
+#profile-results,
+#profile-results li {
+  list-style: none !important;
+}
+
+#profile-results li::before {
+  content: none !important;
+}
 </style>
 
 <script>
