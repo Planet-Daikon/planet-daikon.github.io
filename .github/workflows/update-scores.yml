@@ -125,7 +125,14 @@ jobs:
           if ! git diff --quiet -- data/; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/*.csv data/profiles.txt _profiles/
+            git add data/*.csv data/profiles.txt
             git commit -m "Update Scores"
             git push
           fi
+      - name: Commit generated pages
+        run: |
+          git add _profiles/
+          git status --short
+          git diff --cached --stat
+          git commit -m "Generate profile pages" || echo "No changes to commit"
+          git push
