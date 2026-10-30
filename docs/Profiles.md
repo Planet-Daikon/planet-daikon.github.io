@@ -5,7 +5,7 @@ nav_order: 4
 has_toc: false
 ---
 
-# Players
+# Test
 
 <input id="profile-search" type="search" placeholder="Enter player name…" autocomplete="off">
 <ul id="profile-results"></ul>
@@ -58,3 +58,19 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProfiles("");
 });
 </script>
+
+<style>
+  #profile-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+  }
+
+  #profile-results li {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+</style>
