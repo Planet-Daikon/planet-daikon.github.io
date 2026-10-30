@@ -31,6 +31,46 @@ jobs:
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=643381007&single=true&output=csv" -o data/WVBack.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=350720572&single=true&output=csv" -o data/GOSide.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=653349176&single=true&output=csv" -o data/FB.csv
+      
+      - name: Combine GO
+        run: |
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+      
+          data_dir = Path("data")
+          output_path = data_dir / "GreenOrange.csv"
+      
+          with output_path.open("w", newline="", encoding="utf-8") as outfile:
+              writer = csv.writer(outfile)
+              header_written = False
+      
+              for filename, type_value in [("GOB.csv", "B"), ("GOC.csv", "C")]:
+                  input_path = data_dir / filename
+      
+                  with input_path.open(
+                      "r", newline="", encoding="utf-8-sig"
+                  ) as infile:
+                      reader = csv.reader(infile)
+                      header = next(reader, None)
+      
+                      if header is None:
+                          continue
+      
+                      if not header_written:
+                          writer.writerow([header[0], "Type", *header[1:]])
+                          header_written = True
+                      elif header != original_header:
+                          raise SystemExit(f"Header mismatch in {input_path}")
+                      else:
+                          pass
+      
+                      if not header_written:
+                          original_header = header
+      
+                      for row in reader:
+                          writer.writerow([row[0], type_value, *row[1:]])
+          PY
 
       - name: Update Profiles
         run: |
