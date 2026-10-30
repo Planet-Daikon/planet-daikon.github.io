@@ -32,12 +32,37 @@ jobs:
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=350720572&single=true&output=csv" -o data/GOSide.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=653349176&single=true&output=csv" -o data/FB.csv
 
+      - name: Update Profile List
+        run: |
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          entries = set()
+
+          for path in sorted(Path("data").glob("*.csv")):
+              with path.open(newline="", encoding="utf-8-sig") as f:
+                  reader = csv.reader(f)
+                  next(reader, None)  # Skip this CSV's header
+
+                  for row in reader:
+                      if row and row[0].strip():
+                          entries.add(row[0].strip())
+
+          output = Path("data/profiles.txt")
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(
+              "".join(f"{entry}\n" for entry in sorted(entries)),
+              encoding="utf-8",
+          )
+          PY
+
       - name: Commit if changed
         run: |
           if ! git diff --quiet -- data/; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/*.csv
-            git commit -m "Update CSV"
+            git add data/*.csv data/profiles.txt
+            git commit -m "Update Scores"
             git push
           fi
