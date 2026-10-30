@@ -1,36 +1,36 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const response = await fetch("/data/GreenOrange.csv");
-  if (!response.ok) {
-    throw new Error(`Could not load GreenOrange.csv: ${response.status}`);
+  const dataUrl = path => new URL(path, document.baseURI).href;
+  const csvResponse = await fetch(dataUrl("data/GreenOrange.csv"));
+
+  if (!csvResponse.ok) {
+    throw new Error(`Could not load GreenOrange.csv: ${csvResponse.status}`);
   }
 
-  const rows = parseCSV(await response.text());
-  const [header, ...data] = rows;
+  const [header, ...data] = parseCSV(await csvResponse.text());
+
   if (!header) return;
 
   const headerRow = document.querySelector("#scoreboard-header");
-  const filterRow = document.querySelector("#scoreboard-filters");
   const tbody = document.querySelector("#scoreboard tbody");
 
   header.forEach(name => {
     const th = document.createElement("th");
     th.textContent = name;
     headerRow.appendChild(th);
-
-    filterRow.appendChild(document.createElement("th"));
   });
 
   data.forEach(row => {
     const tr = document.createElement("tr");
+
     header.forEach((_, index) => {
       const td = document.createElement("td");
       td.textContent = row[index] ?? "";
       tr.appendChild(td);
     });
+
     tbody.appendChild(tr);
   });
 
-  // Enable sorting only on columns 1, 2, 3, and 7 (zero-based indexes).
   const table = $("#scoreboard").DataTable({
     order: [],
     columnDefs: [
@@ -39,16 +39,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]
   });
 
-  // Add independent filters for columns 1, 2, and 4.
-  [0, 1, 3].forEach(index => {
-    const input = document.createElement("input");
-    input.type = "search";
-    input.placeholder = `Filter ${header[index]}`;
-    filterRow.children[index].appendChild(input);
-
-    input.addEventListener("input", () => {
-      table.column(index).search(input.value).draw();
+  // External filters: columns 1, 2, and 4 (zero-based indexes 0, 1, and 3).
+  [
+    ["#filter-col-1", 0],
+    ["#filter-col-2", 1],
+    ["#filter-col-4", 3]
+  ].forEach(([selector, columnIndex]) => {
+    document.querySelector(selector).addEventListener("input", event => {
+      table.column(columnIndex).search(event.target.value).draw();
     });
+  });
+
+  // Populate column 1 suggestions from one profile per line.
+  const profilesResponse = await fetch(dataUrl("data/profiles.txt"));
+
+  if (!profilesResponse.ok) {
+    throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
+  }
+
+  const profiles = (await profilesResponse.text())
+    .split(/\r?\n/)
+    .map(profile => profile.trim())
+    .filter(Boolean);
+
+  const datalist = document.querySelector("#profiles-list");
+
+  profiles.forEach(profile => {
+    const option = document.createElement("option");
+    option.value = profile;
+    datalist.appendChild(option);
   });
 
   function parseCSV(text) {
