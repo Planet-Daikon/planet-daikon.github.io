@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  const profilesResponse = await fetch("data/profiles.txt"));
+  const profilesResponse = await fetch("data/profiles.txt");
 
   if (!profilesResponse.ok) {
     throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
