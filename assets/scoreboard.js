@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // Populate column 1 suggestions from one profile per line.
   const profilesResponse = await fetch(dataUrl("data/profiles.txt"));
 
   if (!profilesResponse.ok) {
