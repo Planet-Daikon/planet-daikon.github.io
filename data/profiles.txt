@@ -15,7 +15,7 @@ Ayre223
 Bagz
 Barldon
 BigMastah
-billrob9305<br>Static Sphere
+billrob9305
 Blade
 BlanderSTG
 Bloby
@@ -25,10 +25,8 @@ CachoTognax
 caioken
 Cannaboy
 Canned Potato
-Canned Potato<br>AndyPandy27
 CarbnChaos
 Chinopolis
-Chinopolis<br>MegaMeg
 Chloroxite
 clippa
 Clyceer
@@ -40,12 +38,12 @@ dalt
 Dandy J
 DDLG
 deebits
-DenpaEater<br>Tyler Morrison
+DenpaEater
 Detective Berry
 Diane
 digs1115
 Dinir Nertan
-dollsmithy<br>gooeyPhantasm
+dollsmithy
 Dozing
 Drevonor
 duad
@@ -59,6 +57,7 @@ Erppo
 Etilozapt
 Evelyn Blue
 F
+famitwo2423
 Feylos
 flaco
 Forb4n
@@ -73,7 +72,6 @@ hAck_3r64
 Hexadice
 Hop
 Iced Cactus
-Iced Cactus<br>Detective Berry
 IKA
 illumk2
 It's Otter
@@ -121,6 +119,7 @@ Mark MSX
 Mathemagitron
 Mawwy Mawwy
 Mc.Douglas
+MegaMeg
 Mekhazzio
 melodica
 meme_man
@@ -189,6 +188,7 @@ Softdrink 117
 somebirby
 SourceDecay
 SowakerLamas
+Static Sphere
 Stef
 Stefff
 Stevi
@@ -197,6 +197,7 @@ Sylvie
 Taylor Cameron
 Team Shmup'Em-All
 Telna
+Tenor
 Teragat
 TH3V01D
 thanks_kojima
@@ -222,13 +223,13 @@ wabbylegs
 Walter M
 way ward
 WDYT
-weakboson SDF<br>famitwo2423
+weakboson SDF
 Weeb Nerd Gaming
 Werner
 willow
 XUR
 Yakyback
-Yoshi100_Aus<br>Tenor
+Yoshi100_Aus
 Yuyuko Lanches
 Zaarock
 Zaiyu
