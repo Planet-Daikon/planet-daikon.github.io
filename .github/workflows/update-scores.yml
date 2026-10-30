@@ -43,12 +43,12 @@ jobs:
       
           with output_path.open("w", newline="", encoding="utf-8") as outfile:
               writer = csv.writer(outfile)
-              header_written = False
       
-              for filename, type_value in [("GOB.csv", "B"), ("GOC.csv", "C")]:
-                  input_path = data_dir / filename
-      
-                  with input_path.open(
+              for index, (filename, type_value) in enumerate([
+                  ("GOB.csv", "B"),
+                  ("GOC.csv", "C"),
+              ]):
+                  with (data_dir / filename).open(
                       "r", newline="", encoding="utf-8-sig"
                   ) as infile:
                       reader = csv.reader(infile)
@@ -57,19 +57,12 @@ jobs:
                       if header is None:
                           continue
       
-                      if not header_written:
+                      if index == 0:
                           writer.writerow([header[0], "Type", *header[1:]])
-                          header_written = True
-                      elif header != original_header:
-                          raise SystemExit(f"Header mismatch in {input_path}")
-                      else:
-                          pass
-      
-                      if not header_written:
-                          original_header = header
       
                       for row in reader:
-                          writer.writerow([row[0], type_value, *row[1:]])
+                          if row:
+                              writer.writerow([row[0], type_value, *row[1:]])
           PY
 
       - name: Update Profiles
