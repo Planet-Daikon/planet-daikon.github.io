@@ -5,7 +5,7 @@ nav_order: 4
 has_toc: false
 ---
 
-# Profiles
+# Player Search
 
 <input id="profile-search" type="search" placeholder="Enter player name…" autocomplete="off">
 <ul id="profile-results"></ul>
@@ -24,7 +24,7 @@ has_toc: false
   const input = document.getElementById("profile-search");
   const results = document.getElementById("profile-results");
 
-  function renderProfiles() {
+  function renderProfiles(query = "") {
     const matches = profiles.filter(profile =>
       profile.title.toLowerCase().includes(query.trim().toLowerCase())
     );
