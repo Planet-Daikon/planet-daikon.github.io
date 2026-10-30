@@ -9,3 +9,5 @@ gem "just-the-docs", "0.12.0" # pinned to the current release
 gem "logger"
 
 gem "wdm"
+
+gem "jekyll-remote-theme"

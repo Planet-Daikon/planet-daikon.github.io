@@ -1,6 +1,6 @@
 title: Planet Daikon
 description: Test
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
 
 logo: "/assets/images/logo.png"
 favicon_ico: "/assets/images/favicon.png"
@@ -13,3 +13,6 @@ aux_links:
 heading_anchors: false
 
 color_scheme: dark
+
+plugins:
+  - jekyll-remote-theme
