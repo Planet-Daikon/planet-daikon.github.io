@@ -5,20 +5,69 @@ nav_order: 4
 has_toc: false
 ---
 
-# Test
+# Test2
 
-<input id="profile-search" type="search" placeholder="Enter player name…" autocomplete="off">
-<ul id="profile-results"></ul>
+<div class="profile-search">
+  <input
+    id="profile-search"
+    type="search"
+    placeholder="Search profiles…"
+    autocomplete="off"
+    aria-label="Search profiles"
+    aria-controls="profile-results"
+    aria-expanded="false"
+  >
+  <ul id="profile-results" class="profile-results" hidden></ul>
+</div>
+
+<style>
+  .profile-search {
+    position: relative;
+    max-width: 420px;
+  }
+
+  #profile-search {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .profile-results {
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 12%);
+  }
+
+  .profile-results li a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+  }
+
+  .profile-results li a:hover,
+  .profile-results li a:focus {
+    background: #f2f2f2;
+  }
+
+  .profile-results li.no-results {
+    padding: 8px 12px;
+  }
+</style>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("profile-search");
   const results = document.getElementById("profile-results");
-
-  if (!input || !results) {
-    console.error("Could not find profile search elements.");
-    return;
-  }
 
   const profiles = [
     {% assign sorted_profiles = site.profiles | sort_natural: "title" %}
@@ -30,47 +79,54 @@ document.addEventListener("DOMContentLoaded", () => {
     {% endfor %}
   ];
 
-  function renderProfiles(query) {
-    const term = query.trim().toLowerCase();
+  function renderResults() {
+    const query = input.value.trim().toLowerCase();
     results.replaceChildren();
 
-    const matches = profiles.filter(profile =>
-      profile.title.trim().toLowerCase().startsWith(term)
-    );
-
-    for (const profile of matches) {
-      const li = document.createElement("li");
-      const link = document.createElement("a");
-      link.href = profile.url;
-      link.textContent = profile.title;
-      li.appendChild(link);
-      results.appendChild(li);
+    if (!query) {
+      results.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+      return;
     }
 
-    if (matches.length === 0) {
+    const matches = profiles.filter(profile =>
+      profile.title.trim().toLowerCase().startsWith(query)
+    );
+
+    if (matches.length) {
+      for (const profile of matches) {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = profile.url;
+        link.textContent = profile.title;
+        li.appendChild(link);
+        results.appendChild(li);
+      }
+    } else {
       const li = document.createElement("li");
+      li.className = "no-results";
       li.textContent = "No matching profiles.";
       results.appendChild(li);
     }
+
+    results.hidden = false;
+    input.setAttribute("aria-expanded", "true");
   }
 
-  input.addEventListener("input", () => renderProfiles(input.value));
-  renderProfiles("");
+  input.addEventListener("input", renderResults);
+
+  document.addEventListener("click", event => {
+    if (!event.target.closest(".profile-search")) {
+      results.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      results.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+    }
+  });
 });
 </script>
-
-<style>
-  #profile-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    list-style: none;
-    padding: 0;
-  }
-
-  #profile-results li {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-  }
-</style>
