@@ -73,57 +73,51 @@ jobs:
           )
           PY
 
-      - name: Generate Profiles
+      - name: Generate profile pages
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          from html import escape
           import re
           import unicodedata
-
+      
           source = Path("data/profiles.txt")
-          output_dir = Path("_profile")
+          output_dir = Path("_profiles")
+      
+          if not source.is_file():
+              raise SystemExit(f"Missing input file: {source}")
+      
           output_dir.mkdir(parents=True, exist_ok=True)
-
+      
           def slugify(text):
               text = unicodedata.normalize("NFKD", text)
               text = text.encode("ascii", "ignore").decode("ascii")
               text = re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-").lower()
-              return text or "entry"
-
+              return text or "profile"
+      
           used_slugs = set()
-
-          for entry in source.read_text(encoding="utf-8").splitlines():
-              entry = entry.strip()
-              if not entry:
+      
+          for line in source.read_text(encoding="utf-8").splitlines():
+              name = line.strip()
+              if not name:
                   continue
-
-              slug = slugify(entry)
-              filename = slug
-              suffix = 2
-
-              # Avoid overwriting pages when different names produce the same slug.
-              while filename in used_slugs:
-                  filename = f"{slug}-{suffix}"
-                  suffix += 1
-              used_slugs.add(filename)
-
-              title = entry.replace('"', '\\"')
-              page = output_dir / f"{filename}.md"
+      
+              base = slugify(name)
+              slug = base
+              number = 2
+              while slug in used_slugs:
+                  slug = f"{base}-{number}"
+                  number += 1
+              used_slugs.add(slug)
+      
+              import json
+              title = json.dumps(name, ensure_ascii=False)
+      
+              page = output_dir / f"{slug}.md"
               page.write_text(
-                  f'''---
-          title: "{title}"
-          description: ""
-          ---
-
-          # {entry}
-
-          {{% if page.description and page.description != "" %}}
-          {{{{ page.description }}}}
-          {{% endif %}}
-          ''',
+                  f"---\ntitle: {title}\n---\n\n# {name}\n",
                   encoding="utf-8",
               )
+              print(f"Created {page}")
           PY
 
       - name: Commit if changed
@@ -131,8 +125,7 @@ jobs:
           if ! git diff --quiet -- data/; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/*.csv data/profiles.txt 
-            git add _profile/
+            git add data/*.csv data/profiles.txt _profiles/
             git commit -m "Update Scores"
             git push
           fi
