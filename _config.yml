@@ -18,13 +18,13 @@ plugins:
   - jekyll-remote-theme
 
 collections:
-  profile:
+  profiles:
     output: true
-    permalink: /profile/:name/
+    permalink: /profiles/:name/
 
 just_the_docs:
   collections:
-    profile:
-      name: Profile
-      nav_fold: true
+    profiles:
+      name: Profiles
+      nav_exclude: false
       search_exclude: false
