@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const dataUrl = path => new URL(path, document.baseURI).href;
   const csvResponse = await fetch("/data/GreenOrange.csv");
 
   if (!csvResponse.ok) {
@@ -50,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  const profilesResponse = await fetch(dataUrl("data/profiles.txt"));
+  const profilesResponse = await fetch("data/profiles.txt"));
 
   if (!profilesResponse.ok) {
     throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
