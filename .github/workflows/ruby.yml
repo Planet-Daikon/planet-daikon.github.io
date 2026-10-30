@@ -1,0 +1,18 @@
+name: Ruby Core CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby and run bundle install
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3' # Specify your Ruby version
+        bundler-cache: true # Automatically runs 'bundle install' and caches your gems
