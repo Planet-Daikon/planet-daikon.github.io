@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     results.replaceChildren();
 
     const matches = profiles.filter(profile =>
-      profile.title.toLowerCase().includes(term)
+      profile.title.trim().toLowerCase().startsWith(term)
     );
 
     for (const profile of matches) {
