@@ -73,12 +73,65 @@ jobs:
           )
           PY
 
+      - name: Generate Profiles
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html import escape
+          import re
+          import unicodedata
+
+          source = Path("data/profiles.txt")
+          output_dir = Path("_profiles")
+          output_dir.mkdir(parents=True, exist_ok=True)
+
+          def slugify(text):
+              text = unicodedata.normalize("NFKD", text)
+              text = text.encode("ascii", "ignore").decode("ascii")
+              text = re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-").lower()
+              return text or "entry"
+
+          used_slugs = set()
+
+          for entry in source.read_text(encoding="utf-8").splitlines():
+              entry = entry.strip()
+              if not entry:
+                  continue
+
+              slug = slugify(entry)
+              filename = slug
+              suffix = 2
+
+              # Avoid overwriting pages when different names produce the same slug.
+              while filename in used_slugs:
+                  filename = f"{slug}-{suffix}"
+                  suffix += 1
+              used_slugs.add(filename)
+
+              title = entry.replace('"', '\\"')
+              page = output_dir / f"{filename}.md"
+              page.write_text(
+                  f'''---
+          title: "{title}"
+          description: ""
+          ---
+
+          # {entry}
+
+          {{% if page.description and page.description != "" %}}
+          {{{{ page.description }}}}
+          {{% endif %}}
+          ''',
+                  encoding="utf-8",
+              )
+          PY
+
       - name: Commit if changed
         run: |
           if ! git diff --quiet -- data/; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/*.csv data/profiles.txt
+            git add data/*.csv data/profiles.txt _profiles/
             git commit -m "Update Scores"
             git push
           fi
