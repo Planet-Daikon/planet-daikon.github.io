@@ -13,7 +13,7 @@ has_toc: false
   <tbody></tbody>
 </table>
 
-<link rel="stylesheet"
-      href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
 <script src="{{ '/assets/scoreboard.js' | relative_url }}" defer></script>
