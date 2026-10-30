@@ -5,11 +5,26 @@ nav_order: 2
 has_toc: false
 ---
 
+<div id="scoreboard-filters">
+  <label>
+    Column 1:
+    <input id="filter-col-1" type="search" list="profiles-list">
+    <datalist id="profiles-list"></datalist>
+  </label>
+
+  <label>
+    Column 2:
+    <input id="filter-col-2" type="search">
+  </label>
+
+  <label>
+    Column 4:
+    <input id="filter-col-4" type="search">
+  </label>
+</div>
+
 <table id="scoreboard">
-  <thead>
-    <tr id="scoreboard-header"></tr>
-    <tr id="scoreboard-filters"></tr>
-  </thead>
+  <thead><tr id="scoreboard-header"></tr></thead>
   <tbody></tbody>
 </table>
 
