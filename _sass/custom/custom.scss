@@ -89,14 +89,14 @@ td {
 
 .side-bar {
     @include mq(lg) {
-        width: calc((100% - 86.5rem) / 2 + 16.5rem);
+        width: calc((50% - 86.5rem) / 2 + 16.5rem);
         min-width: $nav-width;
     }
 
     & + .main {
         @include mq(lg) {
-            max-width: 70rem;
-            margin-left: max(16.5rem, (100% - 86.5rem) / 2 + 16.5rem);
+            max-width: 200rem;
+            margin-left: max(16.5rem, (50% - 86.5rem) / 2 + 16.5rem);
         };
     }
     
