@@ -77,6 +77,8 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          from urllib.parse import quote
+          import json
           import re
           import unicodedata
       
@@ -89,10 +91,14 @@ jobs:
           output_dir.mkdir(parents=True, exist_ok=True)
       
           def slugify(text):
-              text = unicodedata.normalize("NFKD", text)
-              text = text.encode("ascii", "ignore").decode("ascii")
-              text = re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-").lower()
-              return text or "profile"
+              normalized = unicodedata.normalize("NFKD", text)
+              ascii_text = normalized.encode("ascii", "ignore").decode("ascii")
+              slug = re.sub(r"[^a-zA-Z0-9]+", "-", ascii_text).strip("-").lower()
+      
+              if slug:
+                  return slug
+      
+              return quote(text, safe="")
       
           used_slugs = set()
       
@@ -109,9 +115,7 @@ jobs:
                   number += 1
               used_slugs.add(slug)
       
-              import json
               title = json.dumps(name, ensure_ascii=False)
-      
               page = output_dir / f"{slug}.md"
               page.write_text(
                   f"---\ntitle: {title}\n---\n\n# {name}\n",
@@ -119,7 +123,6 @@ jobs:
               )
               print(f"Created {page}")
           PY
-
       - name: Commit if changed
         run: |
           if ! git diff --quiet -- data/; then
