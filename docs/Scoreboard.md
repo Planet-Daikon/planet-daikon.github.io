@@ -19,8 +19,8 @@ has_toc: false
 
 <script>
 (async function () {
-  const response = await fetch("{{ '/data/combined.csv' | relative_url }}");
-  if (!response.ok) throw new Error("Could not load combined.csv");
+  const response = await fetch("{{ '/data/GreenOrange.csv' | relative_url }}");
+  if (!response.ok) throw new Error("Could not load GreenOrange.csv");
 
   const text = await response.text();
 
