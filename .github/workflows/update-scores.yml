@@ -68,6 +68,43 @@ jobs:
                   writer.writerow(output_header)
               writer.writerows(rows)
           PY
+
+      - name: Combine WV
+        run: |
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+      
+          data_dir = Path("data")
+          output_path = data_dir / "WhiteVanilla.csv"
+          rows = []
+          output_header = None
+      
+          for filename, type_value in [("WVB.csv", "B"), ("WVC.csv", "C")]:
+              with (data_dir / filename).open(
+                  "r", newline="", encoding="utf-8-sig"
+              ) as infile:
+                  reader = csv.reader(infile)
+                  header = next(reader, None)
+      
+                  if header is None:
+                      continue
+      
+                  if output_header is None:
+                      output_header = [header[0], "TYPE", *header[1:]]
+      
+                  for row in reader:
+                      if row:
+                          rows.append([row[0], type_value, *row[1:]])
+      
+          rows.sort(key=lambda row: int(row[2].replace(",", "")), reverse=True)
+      
+          with output_path.open("w", newline="", encoding="utf-8") as outfile:
+              writer = csv.writer(outfile)
+              if output_header:
+                  writer.writerow(output_header)
+              writer.writerows(rows)
+          PY
           
       - name: Update Profiles
         run: |
