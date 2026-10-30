@@ -13,3 +13,6 @@ aux_links:
 heading_anchors: false
 
 color_scheme: dark
+
+plugins:
+  - jekyll-remote-theme
