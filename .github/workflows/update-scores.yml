@@ -17,7 +17,7 @@ jobs:
       - name: Download CSV
         run: |
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=858596898&single=true&output=csv" -o data/GOB.csv
-          curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=1591622822&single=true&output=csvv" -o data/GOC.csv
+          curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=1591622822&single=true&output=csv" -o data/GOC.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=1364403981&single=true&output=csv" -o data/GODuo.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=835654147&single=true&output=csv" -o data/WVB.csv
           curl -L -v "https://docs.google.com/spreadsheets/d/e/2PACX-1vS0H_MLczNIKoWQzA-Bx4hwSCrp-_2BTXAiMhDzWshOpDOnLeHsqqUo5mCfv28lDSwXvCe02qLx6E-s/pub?gid=264943027&single=true&output=csv" -o data/WVC.csv
