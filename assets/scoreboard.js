@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const dataUrl = path => new URL(path, document.baseURI).href;
-  const csvResponse = await fetch("/data/combined.csv");
+  const csvResponse = await fetch("/data/GreenOrange.csv");
 
   if (!csvResponse.ok) {
     throw new Error(`Could not load GreenOrange.csv: ${csvResponse.status}`);
