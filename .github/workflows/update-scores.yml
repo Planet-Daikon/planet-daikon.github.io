@@ -54,7 +54,7 @@ jobs:
                       continue
       
                   if output_header is None:
-                      output_header = [header[0], "Type", *header[1:]]
+                      output_header = [header[0], "TYPE", *header[1:]]
       
                   for row in reader:
                       if row:
