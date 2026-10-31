@@ -50,22 +50,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]
   });
 
-  [
-    ["#filter-col-1", 0],
-    ["#filter-col-4", 3]
-  ].forEach(([selector, columnIndex]) => {
-    document.querySelector(selector).addEventListener("input", event => {
-      table.column(columnIndex).search(event.target.value).draw();
-    });
+  const filter1 = document.querySelector("#filter-col-1");
+
+  filter1.addEventListener("change", () => {
+    table.column(0).search(filter1.value, false, false).draw();
   });
 
+  document.querySelector("#filter-col-4").addEventListener("input", event => {
+    table.column(3).search(event.target.value).draw();
+  });
+  
   const filter2 = document.querySelector("#filter-col-2");
   const filter2Image = filter2.querySelector("img");
 
   const states = [
     { value: "", label: "both" },
-    { value: "B", label: "B" },
-    { value: "C", label: "C" }
+    { value: "B", label: "typeb" },
+    { value: "C", label: "typec" }
   ];
   
   const imageUrls = filter2.dataset.images.split(",");
