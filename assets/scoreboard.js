@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       link.textContent = value;
       link.href =
         "https://planet-daikon.github.io/profiles/" +
-        encodeURIComponent(value.trim());
+        encodeURIComponent(value.trim().toLowerCase());
       td.appendChild(link);
     } else {
       td.textContent = value;
