@@ -15,7 +15,7 @@ has_toc: false
   <button
     id="filter-col-2"
     type="button"
-    data-images="/assets/images/type-b.png,/assets/images/type-c.png,/assets/images/both.png"
+    data-images="/assets/images/both.png,/assets/images/type-b.png,/assets/images/type-c.png"
     aria-label="All"
   >
     <img src="/assets/images/both.png" alt="">
