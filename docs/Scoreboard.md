@@ -5,11 +5,18 @@ nav_order: 2
 has_toc: false
 ---
 
-<div id="scoreboard-filters">
-  <label>
-    <input id="filter-col-1" type="text" list="profiles-list" autocomplete="off">
-    <datalist id="profiles-list"></datalist>
-  </label>
+<div class="profile-search">
+  <input
+    id="filter-col-1"
+    type="search"
+    placeholder="Player Filter"
+    autocomplete="off"
+    aria-label="Filter by player"
+    aria-controls="profile-results"
+    aria-expanded="false"
+  >
+  <ul id="profile-results" class="profile-results" hidden></ul>
+</div>
 
   <button
     id="filter-col-2"
