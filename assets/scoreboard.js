@@ -77,17 +77,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     filter2Image.src = imageUrls[stateIndex].trim();
     filter2.setAttribute("aria-label", `Show ${state.label} entries`);
   });
-  
-  const profilesResponse = await fetch("/data/profiles.txt");
-
-  if (!profilesResponse.ok) {
-    throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
-  }
-
-  const profiles = (await profilesResponse.text())
-    .split(/\r?\n/)
-    .map(profile => profile.trim())
-    .filter(Boolean);
 
   const filter1 = document.querySelector("#filter-col-1");
   const profilesResponse = await fetch("/data/profiles.txt");
