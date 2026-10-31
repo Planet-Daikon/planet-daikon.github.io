@@ -21,11 +21,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   data.forEach(row => {
     const tr = document.createElement("tr");
 
-    header.forEach((_, index) => {
-      const td = document.createElement("td");
-      td.textContent = row[index] ?? "";
-      tr.appendChild(td);
-    });
+  header.forEach((_, index) => {
+    const td = document.createElement("td");
+    const value = row[index] ?? "";
+  
+    if (index === 0 && value.trim()) {
+      const link = document.createElement("a");
+      link.textContent = value;
+      link.href =
+        "https://planet-daikon.github.io/profiles/" +
+        encodeURIComponent(value.trim());
+      td.appendChild(link);
+    } else {
+      td.textContent = value;
+    }
+  
+    tr.appendChild(td);
+  });
 
     tbody.appendChild(tr);
   });
@@ -38,7 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]
   });
 
-  // External filters: columns 1, 2, and 4 (zero-based indexes 0, 1, and 3).
   [
     ["#filter-col-1", 0],
     ["#filter-col-2", 1],
