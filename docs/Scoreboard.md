@@ -7,9 +7,8 @@ has_toc: false
 
 <div id="scoreboard-filters">
   <label>
-    <select id="filter-col-1">
-      <option value="">Player Filter</option>
-    </select>
+    <input id="filter-col-1" type="text" list="profiles-list" autocomplete="off">
+    <datalist id="profiles-list"></datalist>
   </label>
 
   <button
@@ -22,7 +21,6 @@ has_toc: false
   </button>
 
   <label>
-    Column 4:
     <input id="filter-col-4" type="search">
   </label>
 </div>
