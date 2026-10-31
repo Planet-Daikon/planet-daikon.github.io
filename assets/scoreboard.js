@@ -49,16 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       { targets: [0, 1, 2, 6], orderable: true }
     ]
   });
-
-  const filter1 = document.querySelector("#filter-col-1");
-
-  filter1.addEventListener("change", () => {
-    table.column(0).search(filter1.value, false, false).draw();
-  });
-
-  document.querySelector("#filter-col-4").addEventListener("input", event => {
-    table.column(3).search(event.target.value).draw();
-  });
   
   const filter2 = document.querySelector("#filter-col-2");
   const filter2Image = filter2.querySelector("img");
@@ -99,6 +89,78 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map(profile => profile.trim())
     .filter(Boolean);
 
+  const filter1 = document.querySelector("#filter-col-1");
+  const results = document.querySelector("#profile-results");
+
+  function renderResults() {
+    const query = filter1.value.trim().toLowerCase();
+    results.replaceChildren();
+
+    if (!query) {
+      results.hidden = true;
+      filter1.setAttribute("aria-expanded", "false");
+      table.column(0).search("").draw();
+      return;
+    }
+
+    const matches = profiles.filter(profile =>
+      profile.toLowerCase().startsWith(query)
+    );
+
+    for (const profile of matches) {
+      const li = document.createElement("li");
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.textContent = profile;
+      button.addEventListener("click", () => {
+        filter1.value = profile;
+        table.column(0)
+          .search(`^${escapeRegex(profile)}$`, true, false)
+          .draw();
+        results.hidden = true;
+        filter1.setAttribute("aria-expanded", "false");
+      });
+
+      li.appendChild(button);
+      results.appendChild(li);
+    }
+
+    if (!matches.length) {
+      const li = document.createElement("li");
+      li.className = "no-results";
+      li.textContent = "No matching profiles.";
+      results.appendChild(li);
+    }
+
+    results.hidden = false;
+    filter1.setAttribute("aria-expanded", "true");
+  }
+
+  filter1.addEventListener("input", renderResults);
+
+  document.addEventListener("click", event => {
+    if (!event.target.closest(".profile-search")) {
+      results.hidden = true;
+      filter1.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  filter1.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      results.hidden = true;
+      filter1.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  document.querySelector("#filter-col-4").addEventListener("input", event => {
+    table.column(3).search(event.target.value).draw();
+  });
+  
   const datalist = document.querySelector("#profiles-list");
 
   profiles.forEach(profile => {
