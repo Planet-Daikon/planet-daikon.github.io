@@ -90,7 +90,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     .filter(Boolean);
 
   const filter1 = document.querySelector("#filter-col-1");
+  const profilesResponse = await fetch("/data/profiles.txt");
+
+  if (!profilesResponse.ok) {
+    throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
+  }
+
+  const profiles = (await profilesResponse.text())
+    .split(/\r?\n/)
+    .map(profile => profile.trim())
+    .filter(Boolean);
+
+  const filter1 = document.querySelector("#filter-col-1");
   const results = document.querySelector("#profile-results");
+
+  function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
 
   function renderResults() {
     const query = filter1.value.trim().toLowerCase();
@@ -153,20 +169,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  function escapeRegex(value) {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
-
   document.querySelector("#filter-col-4").addEventListener("input", event => {
     table.column(3).search(event.target.value).draw();
-  });
-  
-  const datalist = document.querySelector("#profiles-list");
-
-  profiles.forEach(profile => {
-    const option = document.createElement("option");
-    option.value = profile;
-    datalist.appendChild(option);
   });
 
   function parseCSV(text) {
