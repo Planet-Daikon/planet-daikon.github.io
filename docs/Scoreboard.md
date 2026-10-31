@@ -7,15 +7,19 @@ has_toc: false
 
 <div id="scoreboard-filters">
   <label>
-    Column 1:
-    <input id="filter-col-1" type="search" list="profiles-list">
-    <datalist id="profiles-list"></datalist>
+    <select id="filter-col-1">
+      <option value="">Player Filter</option>
+    </select>
   </label>
 
-  <label>
-    Column 2:
-    <input id="filter-col-2" type="search">
-  </label>
+  <button
+    id="filter-col-2"
+    type="button"
+    data-images="/assets/images/type-b.png,/assets/images/type-c.png,/assets/images/both.png"
+    aria-label="All"
+  >
+    <img src="/assets/images/both.png" alt="">
+  </button>
 
   <label>
     Column 4:
