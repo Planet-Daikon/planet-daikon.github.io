@@ -5,12 +5,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     throw new Error(`Could not load GreenOrange.csv: ${csvResponse.status}`);
   }
 
-  const profilesResponse = await fetch("data/profiles.txt");
-
-  if (!profilesResponse.ok) {
-    throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
-  }
-  
   const [header, ...data] = parseCSV(await csvResponse.text());
 
   if (!header) return;
@@ -54,6 +48,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       table.column(columnIndex).search(event.target.value).draw();
     });
   });
+
+  const profilesResponse = await fetch("data/profiles.txt");
+
+  if (!profilesResponse.ok) {
+    throw new Error(`Could not load profiles.txt: ${profilesResponse.status}`);
+  }
 
   const profiles = (await profilesResponse.text())
     .split(/\r?\n/)
