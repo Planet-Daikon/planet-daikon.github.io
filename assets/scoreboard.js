@@ -50,35 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]
   });
   
-  const filter2 = document.querySelector("#filter-col-2");
-  const filter2Image = filter2.querySelector("img");
-
-  const states = [
-    { value: "", label: "both" },
-    { value: "B", label: "typeb" },
-    { value: "C", label: "typec" }
-  ];
-  
-  const imageUrls = filter2.dataset.images.split(",");
-  let stateIndex = 0;
-  
-  table.column(1).search("").draw();
-  filter2Image.src = imageUrls[stateIndex].trim();
-  filter2.setAttribute("aria-label", "Show B entries");
-
-  filter2.addEventListener("click", () => {
-    stateIndex = (stateIndex + 1) % states.length;
-    const state = states[stateIndex];
-
-    table.column(1)
-      .search(state.value ? `^${state.value}$` : "", true, false)
-      .draw();
-
-    filter2Image.src = imageUrls[stateIndex].trim();
-    filter2.setAttribute("aria-label", `Show ${state.label} entries`);
-  });
-
-  const filter1 = document.querySelector("#filter-col-1");
   const profilesResponse = await fetch("/data/profiles.txt");
 
   if (!profilesResponse.ok) {
@@ -162,6 +133,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     table.column(3).search(event.target.value).draw();
   });
 
+  const filter2 = document.querySelector("#filter-col-2");
+  const filter2Image = filter2.querySelector("img");
+
+  const states = [
+    { value: "", label: "both" },
+    { value: "B", label: "typeb" },
+    { value: "C", label: "typec" }
+  ];
+  
+  const imageUrls = filter2.dataset.images.split(",");
+  let stateIndex = 0;
+  
+  table.column(1).search("").draw();
+  filter2Image.src = imageUrls[stateIndex].trim();
+  filter2.setAttribute("aria-label", "Show B entries");
+
+  filter2.addEventListener("click", () => {
+    stateIndex = (stateIndex + 1) % states.length;
+    const state = states[stateIndex];
+
+    table.column(1)
+      .search(state.value ? `^${state.value}$` : "", true, false)
+      .draw();
+
+    filter2Image.src = imageUrls[stateIndex].trim();
+    filter2.setAttribute("aria-label", `Show ${state.label} entries`);
+  });
+  
   function parseCSV(text) {
     const rows = [];
     let row = [];
