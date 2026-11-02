@@ -85,6 +85,17 @@ td {
     background-color: rgba(#242424, 1);
 }
 
+.table-wrapper table {
+  table-layout: auto;
+  width: 100%;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  min-width: 0;
+  width: auto;
+}
+
 // Fix page width
 
 .side-bar {
